@@ -1,5 +1,3 @@
-//  UPDATE ATTRIBUTES WHEN MODELS ARE FINISHED
-//  STILL NEEDS TO BE FINISHED
 
 const router = require('express').Router();
 const {User} = require('../../models');
@@ -11,15 +9,15 @@ router.get('/', (req, res) => {
 User.findAll({
 include: {
     model: User,
-    attributes: []
+    attributes: ['id', 'firstName', 'lastName', 'username', 'password']
 }
 })
-.then(dbInvData => {
-    if(!dbInvData) {
+.then(dbUseData => {
+    if(!dbUseData) {
     res.status(404).json({message: 'No User found'});
     return;
     }
-    res.json(dbInvData);
+    res.json(dbUseData);
 })
 .catch(err => {
     console.log(err);
@@ -35,15 +33,15 @@ where: {
 },
 include: {
     model: User,
-    attributes: []//fill in the rest ASAP//
+    attributes: ['id', 'firstName', 'lastName', 'username', 'password']
 }
 })
-.then(dbInvData => {
-    if(!dbInvData) {
-    res.status(404).json({message: 'No Invitee found'});
+.then(dbUseData => {
+    if(!dbUseData) {
+    res.status(404).json({message: 'No User found'});
     return;
     }
-    res.json(dbInvData);
+    res.json(dbUseData);
 })
 .catch(err => {
     console.log(err);
@@ -52,11 +50,11 @@ include: {
 });
 
 router.post('/', (req, res) => {
-// create a new Invite
+// create a new User
 User.create({
 UserName: req.body.UserName
 })
-.then(dbInvData => res.json(dbInvData))
+.then(dbUseData => res.json(dbUseData))
 .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -64,18 +62,18 @@ UserName: req.body.UserName
 });
 
 router.put('/:id', (req, res) => {
-// update an Invite by its `id` value
+// update an User by its `id` value
 User.update(req.body, {
 where: {
     id: req.params.id
 }
 })
-.then(dbInvData => {
-    if (!dbInvData) {
-    res.status(404).json({message:'No Invite found with this id'});
+.then(dbUseData => {
+    if (!dbUseData) {
+    res.status(404).json({message:'No User found with this id'});
     return;
     }
-    res.json(dbInvData);
+    res.json(dbUseData);
 })
 .catch(err => {
     console.log(err);
@@ -84,15 +82,15 @@ where: {
 });
 
 router.delete('/:id', (req, res) => {
-// delete an Invite by its `id` value
+// delete an User by its `id` value
 User.destroy({
 where: {
     id: req.params.id
 }
 })
-.then(dbInvData => {
-    if (!dbInvData){
-    res.status(404).json({message: 'No Invite found with that id.'});
+.then(dbUseData => {
+    if (!dbUseData){
+    res.status(404).json({message: 'No User found with that id.'});
     return;
     }
     res.json(dbUserData);
