@@ -31,7 +31,7 @@ where: {
     id: req.params.id
 },
 include: {
-    model: Product,
+    model: Comment,
     attributes: ['id', 'comment_text', 'user_id', 'event_id']
 }
 })
@@ -51,7 +51,7 @@ include: {
 router.post('/', (req, res) => {
 // create a new comment
 Comment.create({
-category_name: req.body.category_name
+comment_text: req.body.comment_text
 })
 .then(dbComData => res.json(dbComData))
 .catch(err => {
@@ -67,12 +67,12 @@ where: {
     id: req.params.id
 }
 })
-.then(dbCatData => {
-    if (!dbCatData) {
-    res.status(404).json({message:'No category found with this id'});
+.then(dbComData => {
+    if (!dbComData) {
+    res.status(404).json({message:'No comment found with this id'});
     return;
     }
-    res.json(dbCatData);
+    res.json(dbComData);
 })
 .catch(err => {
     console.log(err);
@@ -81,18 +81,18 @@ where: {
 });
 
 router.delete('/:id', (req, res) => {
-// delete a category by its `id` value
-Category.destroy({
+// delete a comment by its `id` value
+Comment.destroy({
 where: {
     id: req.params.id
 }
 })
-.then(dbCatData => {
-    if (!dbCatData){
-    res.status(404).json({message: 'No category found with that id.'});
+.then(dbComData => {
+    if (!dbComData){
+    res.status(404).json({message: 'No comment found with that id.'});
     return;
     }
-    res.json(dbCatData);
+    res.json(dbCommentData);
 })
 .catch(err => {
     console.log(err);
