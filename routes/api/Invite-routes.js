@@ -1,21 +1,19 @@
-//  UPDATE ATTRIBUTES WHEN MODELS ARE FINISHED
-
 const router = require('express').Router();
-const {Invitees} = require('../../models');
+const {Invite} = require('../../models');
 
 
 
 router.get('/', (req, res) => {
 
-Invitees.findAll({
+Invite.findAll({
 include: {
-    model: Invitees,
+    model: Invite,
     attributes: ['id', 'attending', 'event_id', 'user_id']
 }
 })
 .then(dbInvData => {
     if(!dbInvData) {
-    res.status(404).json({message: 'No Invitees found'});
+    res.status(404).json({message: 'No Invite found'});
     return;
     }
     res.json(dbInvData);
@@ -28,18 +26,18 @@ include: {
 
 router.get('/:id', (req, res) => {
 
-Invitees.findOne({
+Invite.findOne({
 where: {
     id: req.params.id
 },
 include: {
-    model: Invitees,
+    model: Invite,
     attributes: ['id', 'attending', 'event_id', 'user_id']
 }
 })
 .then(dbInvData => {
     if(!dbInvData) {
-    res.status(404).json({message: 'No Invitee found'});
+    res.status(404).json({message: 'No Invite found'});
     return;
     }
     res.json(dbInvData);
@@ -52,8 +50,8 @@ include: {
 
 router.post('/', (req, res) => {
 // create a new Invite
-Invitees.create({
-InviteesName: req.body.InviteesName
+Invite.create({
+InviteName: req.body.InviteName
 })
 .then(dbInvData => res.json(dbInvData))
 .catch(err => {
@@ -64,7 +62,7 @@ InviteesName: req.body.InviteesName
 
 router.put('/:id', (req, res) => {
 // update an Invite by its `id` value
-Invitees.update(req.body, {
+Invite.update(req.body, {
 where: {
     id: req.params.id
 }
@@ -84,7 +82,7 @@ where: {
 
 router.delete('/:id', (req, res) => {
 // delete an Invite by its `id` value
-Invitees.destroy({
+Invite.destroy({
 where: {
     id: req.params.id
 }
@@ -94,7 +92,7 @@ where: {
     res.status(404).json({message: 'No Invite found with that id.'});
     return;
     }
-    res.json(dbInviteesData);
+    res.json(dbInviteData);
 })
 .catch(err => {
     console.log(err);
