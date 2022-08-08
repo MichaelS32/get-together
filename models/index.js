@@ -1,10 +1,12 @@
 const User = require('./User');
 const Event = require('./Event');
 const Comment = require('./Comment');
+const Invitee = require('/Invitees');
 
 User.hasMany(Event, {
     foreignKey: 'user_id'
 });
+
 Event.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: "cascade"
@@ -16,7 +18,7 @@ Comment.belongsTo(User, {
 });
 
 Comment.belongsTo(Event, {
-    foreignKey: 'Event_id',
+    foreignKey: 'event_id',
     onDelete: "cascade"
 });
 
@@ -26,7 +28,18 @@ User.hasMany(Comment, {
 });
 
 Event.hasMany(Comment, {
-    foreignKey: 'Event_id',
+    foreignKey: 'event_id',
+    onDelete: "cascade"
+});
+
+Event.hasMany(Invite, {
+    foreignKey: 'event_id',
     onDelete: "cascade"
 })
-module.exports = { User, Event, Comment };
+
+Invite.belongsTo(Event, {
+    foreignKey: 'event_id',
+    onDelete: "cascade"
+});
+
+module.exports = { User, Event, Comment, Invitee };
