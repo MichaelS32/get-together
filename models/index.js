@@ -1,7 +1,7 @@
 const User = require('./User');
 const Event = require('./Event');
 const Comment = require('./Comment');
-const Invitee = require('/Invitees');
+const Invite = require('./Invite');
 
 User.hasMany(Event, {
     foreignKey: 'user_id'
@@ -42,4 +42,4 @@ Invite.belongsTo(Event, {
     onDelete: "cascade"
 });
 
-module.exports = { User, Event, Comment, Invitee };
+module.exports = { User, Event, Comment, Invite };

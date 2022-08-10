@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('sequelize');
+const sequelize = require('../config/connection.js');
 
 class Invite extends Model { }
 
@@ -37,6 +37,8 @@ Invite.init(
         timestamps: true,
         freezeTableName: true,
         underscored: true,
-        modelName: 'event'
+        modelName: 'invite'
     }
 )
+
+module.exports = Invite;

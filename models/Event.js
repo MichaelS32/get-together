@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('sequelize');
+const sequelize = require('../config/connection.js');
 
 class Event extends Model { }
 
@@ -41,4 +41,4 @@ Event.init(
     }
 );
 
-module.exports = 'Event';
+module.exports = Event;
