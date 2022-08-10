@@ -8,8 +8,9 @@ router.get('/', (req, res) => {
     Event.findAll({
         attributes: [
             'id',
-            'title',
-            'created_at'
+            'eventName',
+            'description',
+            'date'
         ],
         include: [
             {
