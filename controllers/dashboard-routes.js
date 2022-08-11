@@ -10,9 +10,9 @@ router.get('/', withAuth, (req, res) => {
         },
         attributes: [
             'id',
-            'title',
-            'content',
-            'created_at',
+            'eventName',
+            'description',
+            // 'created_at',
         ],
         include: [{
             model: Comment,
@@ -41,9 +41,9 @@ router.get('/edit/:id', (req, res) => {
         },
         attributes: [
             'id',
-            'title',
-            'content',
-            'created_at'
+            'eventName',
+            'description',
+            // 'created_at'
         ],
         include: [{
             model: User,

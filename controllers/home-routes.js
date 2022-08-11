@@ -10,12 +10,12 @@ router.get('/', (req, res) => {
             'id',
             'eventName',
             'description',
-            'date'
+            // 'date'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'event_id', 'user_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'event_id', 'user_id'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -50,7 +50,7 @@ router.get('/event/:id', (req, res) => {
         attributes: [
             'id',
             'eventName',
-            'date'
+            // 'date'
         ],
         include: [
             {
