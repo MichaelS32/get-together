@@ -1,0 +1,19 @@
+{{> event-info event}}
+
+{{#if loggedIn}}
+<form id="comment-form" class="comment-form">
+    <div>
+        <input name="comment_text"></input>
+    </div>
+
+    <div>
+        <button type="submit">add comment</button>
+    </div>
+</form>
+{{/if}}
+
+{{> comments event.comments}}
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}

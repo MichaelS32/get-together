@@ -2,9 +2,9 @@ async function newFormHandler(event) {
     event.preventDefault();
 
     const eventName = document.querySelector('input[name="event-name"]').value;
-    const description = document.querySelector('input[name="event-description"').value;
+    const description = document.querySelector('input[name="description"').value;
 
-    const response = await fetch('/api/events', {
+    const response = await fetch('/api/event', {
         method: 'POST',
         body: JSON.stringify({
             eventName,

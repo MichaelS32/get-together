@@ -6,7 +6,7 @@ const withAuth = require('../utils/auth');
 router.get('/', withAuth, (req, res) => {
     Event.findAll({
         where: {
-            user_id: req.session.user.id,
+            user_id: req.session.user_id,
         },
         attributes: [
             'id',
@@ -28,7 +28,7 @@ router.get('/', withAuth, (req, res) => {
         }]
     })
         .then(dbEventData => {
-            const events = dbPosgDat.map(event => event.get({ plain: true }));
+            const events = dbEventData.map(event => event.get({ plain: true }));
             res.render('dashboard', { events, loggedIn: true });
         })
         .catch(err => res.status(500).send(err))
@@ -51,7 +51,11 @@ router.get('/edit/:id', (req, res) => {
         },
         {
             model: Comment,
-            attributes: ['username']
+            attributes: ['id', 'comment_text', 'event_id', 'user_id'],
+            include: {
+                model: User,
+                attributes: ['username']
+            }
         }]
     })
         .then(dbEventData => {
@@ -65,7 +69,7 @@ router.get('/edit/:id', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-    res.render('new-event');
+    res.render('create-event');
 });
 
 module.exports = router;

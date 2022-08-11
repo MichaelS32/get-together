@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Event, User, Comment } = require('../../models');
+const sequelize = require('../../config/connection')
 const withAuth = require('../../utils/auth');
+
 router.get('/', (req, res) => {
     Comment.findAll({})
         .then(dbCommentData => res.json(dbCommentData))
@@ -9,10 +11,10 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     Comment.findAll({
-            where: {
-                id: req.params.id
-            }
-        })
+        where: {
+            id: req.params.id
+        }
+    })
         .then(dbCommentData => res.json(dbCommentData))
         .catch(err => res.status(500).send(err))
 });
@@ -20,10 +22,10 @@ router.get('/:id', (req, res) => {
 router.post('/', withAuth, (req, res) => {
     if (req.session) {
         Comment.create({
-                comment_text: req.body.comment_text,
-                event_id: req.body.event_id,
-                user_id: req.session.user_id,
-            })
+            comment_text: req.body.comment_text,
+            event_id: req.body.event_id,
+            user_id: req.session.user_id,
+        })
             .then(dbCommentData => res.json(dbCommentData))
             .catch(err => {
                 console.log(err);
@@ -46,7 +48,7 @@ router.put('/:id', withAuth, (req, res) => {
         }
         res.json(dbCommentData);
     })
-    .catch(err => res.status(500).send(err))
+        .catch(err => res.status(500).send(err))
 });
 
 router.delete('/:id', withAuth, (req, res) => {
@@ -61,6 +63,6 @@ router.delete('/:id', withAuth, (req, res) => {
         }
         res.json(dbCommentData);
     })
-    .catch(err => res.status(500).send(err))
+        .catch(err => res.status(500).send(err))
 });
 module.exports = router;
