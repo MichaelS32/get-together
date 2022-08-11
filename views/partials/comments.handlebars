@@ -1,12 +1,15 @@
-<div class="comments">
+<div class="card">
   {{#each this}}
   <section class="comment">
-    <div class="meta">
+    <div class="meta card-title">
       {{user.username}}
     </div>
-    <div class="text">
+    <div class="text card-text">
       {{comment_text}}
     </div>
   </section>
   {{/each}}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

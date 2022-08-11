@@ -1,29 +1,37 @@
-<form id="login-form">
-    <div>
-        <label for="username-login">username:</label>
-        <input type="text" id="username-login" />
-    </div>
-    <div>
-        <label for="password-login">password:</label>
-        <input type="password" id="password-login" />
-    </div>
-    <div>
-        <button type="submit">login</button>
-    </div>
-</form>
+<div class="card">
+    <h3 class="card-header">Login</h3>
+    <form id="login-form">
+        <div>
+            <label class="form-label" for="username-login">username:</label>
+            <input class="form-input" type="text" id="username-login" />
+        </div>
+        <div>
+            <label class="form-label" for="password-login">password:</label>
+            <input class="form-input" type="password" id="password-login" />
+        </div>
+        <div>
+            <button type="submit" class="btn">login</button>
+        </div>
+    </form>
 
-<form id="signup-form">
-    <div>
-        <label for="username-signup">username:</label>
-        <input type="text" id="username-signup" />
-    </div>
-    <div>
-        <label for="password-signup">password:</label>
-        <input type="password" id="password-signup" />
-    </div>
-    <div>
-        <button type="submit">signup</button>
-    </div>
-</form>
+    <h3 class="card-header">Signup</h3>
+    <form id="signup-form">
+        <div>
+            <label class="form-label" for="username-signup">username:</label>
+            <input class="form-input" type="text" id="username-signup" />
+        </div>
+        <div>
+            <label class="form-label" for="password-signup">password:</label>
+            <input class="form-input" type="password" id="password-signup" />
+        </div>
+        <div>
+            <button type="submit" class="btn">signup</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
 
 <script src="/javascript/login.js"></script>
