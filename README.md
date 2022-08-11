@@ -6,7 +6,7 @@
 - James Chavez
 - Montez Burt
 
-![image](assets\images\get-together.PNG)
+![image](assets/images/get-together.PNG)
 
 ## CONCEPT
 
