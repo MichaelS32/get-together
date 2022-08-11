@@ -1,13 +1,13 @@
 <section>
     <h2>Create New Event</h2>
 
-    <form class="new-event-form">
+    <form id="new-event-form" class="new-event-form">
         <div>
-            <label for="event-name">Title</label>
+            <label for="event-name">Event Name</label>
             <input type="text" id="event-name" name="event-name" />
         </div>
         <div>
-            <label for="post-url">Link</label>
+            <label for="description">Description</label>
             <input type="text" id="description" name="description" />
         </div>
         <button type="submit" class="btn">Create</button>
@@ -18,7 +18,7 @@
 <section>
     <h2>Your Events</h2>
     <ol>
-        {{#each event as |event|}}
+        {{#each event }}
         <li>
             {{> event-info event}}
             <a href="/dashboard/edit/{{event.id}}" class="edit-link">Edit event</a>
