@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
             'id',
-            'post_url',
+            'event_url',
             'title',
             'created_at'
         ],
@@ -27,8 +27,8 @@ router.get('/', (req, res) => {
             }
         ]
     })
-        .then(dbPostData => {
-            const posts = dbPostData.map(post => post.get({ plain: true }));
+        .then(dbEventData => {
+            const posts = dbEventData.map(event => event.get({ plain: true }));
 
             res.render('homepage', {
                 posts,

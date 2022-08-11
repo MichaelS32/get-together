@@ -1,3 +1,4 @@
+-- Active: 1660171214713@@127.0.0.1@3306
 DROP DATABASE IF EXISTS get_together;
 
 CREATE DATABASE get_together;
