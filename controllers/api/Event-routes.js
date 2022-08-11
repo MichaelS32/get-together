@@ -1,103 +1,110 @@
 const router = require('express').Router();
-const {Event} = require('../../models');
-
-
+const { Event, User, Comment } = require('../../models');
+const sequelize = require('../../config/connection');
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
+    console.log('======================');
+    Event.findAll({
+            attributes: ['id',
+                'eventName',
+                'description',
+                
+            ],
+            order: [
+                ['id', 'DESC']
+            ],
+            include: [{
+                    model: User,
+                    attributes: ['username']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'event_id', 'user_id'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                }
+            ]
+        })
+        .then(dbEventData => res.json(dbEventData.reverse()))
+        .catch(err => res.status(500).send(err))
 
-Event.findAll({
-include: {
-    model: Event,
-    attributes: ['id', 'eventName', 'description', 'date', 'user_id']
-}
-})
-.then(dbEveData => {
-    if(!dbEveData) {
-    res.status(404).json({message: 'No events found'});
-    return;
-    }
-    res.json(dbEveData);
-})
-.catch(err => {
-    console.log(err);
-    res.status(500).json(err)
 });
-});
-
 router.get('/:id', (req, res) => {
-
-Event.findOne({
-where: {
-    id: req.params.id
-},
-include: {
-    model: Event,
-    attributes: ['id', 'eventName', 'description', 'date', 'user_id']
-}
-})
-.then(dbEveData => {
-    if(!dbEveData) {
-    res.status(404).json({message: 'No event found'});
-    return;
-    }
-    res.json(dbEveData);
-})
-.catch(err => {
-    console.log(err);
-    res.status(500).json(err)
-});
-});
-
-router.post('/', (req, res) => {
-// create a new event
-Event.create({
-eventName: req.body.eventName
-})
-.then(dbEveData => res.json(dbEveData))
-.catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-});
+    Event.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: ['id',
+                'eventName',
+                'description'
+            ],
+            include: [{
+                    model: User,
+                    attributes: ['username']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'event_id', 'user_id'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                }
+            ]
+        })
+        .then(dbEventData => {
+            if (!dbEventData) {
+                res.status(404).json({ message: 'No event found with this id' });
+                return;
+            }
+            res.json(dbEventData);
+        })
+        .catch(err => res.status(500).send(err))
 });
 
-router.put('/:id', (req, res) => {
-// update a event by its `id` value
-Event.update(req.body, {
-where: {
-    id: req.params.id
-}
-})
-.then(dbEveData => {
-    if (!dbEveData) {
-    res.status(404).json({message:'No event found with this id'});
-    return;
-    }
-    res.json(dbEveData);
-})
-.catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-});
+router.post('/', withAuth, (req, res) => {
+    Event.create({
+            eventName: req.body.eventName,
+            description: req.body.description,
+            user_id: req.session.user_id
+        })
+        .then(dbEventData => res.json(dbEventData))
+        .catch(err => res.status(500).send(err))
 });
 
-router.delete('/:id', (req, res) => {
-// delete an event by its `id` value
-Event.destroy({
-where: {
-    id: req.params.id
-}
-})
-.then(dbEveData => {
-    if (!dbEveData){
-    res.status(404).json({message: 'No event found with that id.'});
-    return;
-    }
-    res.json(dbEventData);
-})
-.catch(err => {
-    console.log(err);
-    res.status(500).json(err);
+router.put('/:id', withAuth, (req, res) => {
+    Event.update({
+            title: req.body.title,
+            content: req.body.content
+        }, {
+            where: {
+                id: req.params.id
+            }
+        }).then(dbEventData => {
+            if (!dbEventData) {
+                res.status(404).json({ message: 'No event found with this id' });
+                return;
+            }
+            res.json(dbEventData);
+        })
+        .catch(err => res.status(500).send(err))
 });
+router.delete('/:id', withAuth, (req, res) => {
+    Event.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(dbEventData => {
+        if (!dbEventData) {
+            res.status(404).json({ message: 'No event found with this id' });
+            return;
+        }
+        res.json(dbEventData);
+    })
+    .catch(err => res.status(500).send(err))
 });
 
 module.exports = router;

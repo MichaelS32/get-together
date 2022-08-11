@@ -1,0 +1,11 @@
+<article class="event">
+    <div class="title">
+        <a href="{{event_url}}" target="_blank">{{event.eventname}}</a>
+    </div>
+    <div>
+        <p>{{event.description}}</p>
+    </div>
+    <div class="meta">
+        <a href="/event/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+    </div>
+</article>
