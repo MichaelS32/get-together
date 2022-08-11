@@ -1,9 +1,9 @@
-<article class="event">
-    <div class="title">
+<article class="event card">
+    <div class="title card-title">
         <h2>{{eventName}} hosted by {{user.username}}</h2>
     </div>
     <div>
-        <p>{{description}}</p>
+        <p class="card-text">{{description}}</p>
     </div>
     <div class="meta">
         <a href="/event/{{id}}">{{comment.length}} {{format_plural "comment" comments.length}}</a>
